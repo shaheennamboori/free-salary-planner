@@ -1,0 +1,16 @@
+:host {
+  .title-container{
+    display: flex;
+    justify-content: space-between;
+  }
+  .balance{
+    min-width: 200px;
+    text-align: start;
+  }
+  .tablecontainer{
+    min-height: 500px;
+    max-height: 500px;
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+}
