@@ -2,53 +2,54 @@
   <div class="title-container">
     <span>
       Month :
-    <input type="text" class="mt-3" placeholder="Month" value="January">
+      <input type="text" class="mt-3" placeholder="Month" [(ngModel)]="month">
     </span>
     <span>
       Salary :
-    <input type="text" class="mt-3" placeholder="Salary" [(ngModel)]="salary">
-  </span>
-  <span>
-    Balance :
-    <div class="badge bg-secondary mt-3 p-2 balance">Rs {{salary - total}}</div>
+      <input type="text" class="mt-3" placeholder="Salary" [(ngModel)]="salary">
+    </span>
+    <span>
+      Balance :
+      <div class="badge bg-secondary mt-3 p-2 balance">Rs {{salary - total}}</div>
     </span>
   </div>
-<div class="tablecontainer">
+  <div class="tablecontainer">
 
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Amount</th>
-        <th scope="col">Remarks</th>
-        <th scope="col">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let i of items;let index=index">
-        <th scope="row">{{index + 1}}</th>
-        <td><input type="text" [value]="i.Name"></td>
-        <td>
-          <input type="text" [value]="i.Amount" (change)="ChangeInAmount(i, index, $event)">
-        </td>
-        <td>
-          <input type="text" [value]="i.Remarks">
-        </td>
-        <td>
-          <input type="checkbox" id="">
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Remarks</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let i of items;let index=index">
+          <th scope="row">{{index + 1}}</th>
+          <td><input type="text" [value]="i.Name" (change)="ChangeInName(i, index, $event)"></td>
+          <td>
+            <input type="text" [value]="i.Amount" (change)="ChangeInAmount(i, index, $event)">
+          </td>
+          <td>
+            <input type="text" [value]="i.Remarks" (change)="ChangeInRemarks(i, index, $event)">
+          </td>
+          <td>
+            <input type="checkbox" [checked]="isItemDone(i, index)" (click)="toggleCheck(i, index)">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="button" class="save-button" (click)="AddExpense()"><span class="material-icons">&#xe145;</span>Add expense</button>
+  </div>
   <div class="title-container">
     <input type="file" [accept]="'.txt'" (change)="Upload($event)">
     <span>
-    <button type="button" class="btn btn-primary me-2" (click)="Save()">Save to file</button>
-    <button type="button" class="btn btn-success" (click)="AddExpense()">Add expense</button>
-  </span>
+      <button type="button" class="btn btn-primary me-2" (click)="Save()">Save to file</button>
+      <button type="button" class="btn btn-success" (click)="AddExpense()">Add expense</button>
+    </span>
 
   </div>
 </div>

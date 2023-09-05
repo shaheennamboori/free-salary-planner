@@ -13,10 +13,11 @@ export class AppComponent implements OnInit {
   public items: ExpenseItem[] = [];
 
   public salary: number = 1000;
+  public month: string = 'January';
   public total: number = 0;
 
   public AddExpense() {
-    this.items.push(new ExpenseItem('Default Name'));
+    this.items.push(new ExpenseItem('Name'));
   }
 
   public Calculate() {
@@ -31,7 +32,7 @@ export class AppComponent implements OnInit {
 
   public Save() {
     const fileName = 'expenses.txt';
-    let fileContent = '';
+    let fileContent = `${this.month}\n${this.salary}\n`;
     this.items.forEach((element) => {
       fileContent =
         fileContent +
@@ -49,16 +50,38 @@ export class AppComponent implements OnInit {
     const file: File = e.target.files[0];
     const fileContent = await file.text();
     let lines = fileContent.split('\n')
+    let header = lines.splice(0,2)
+    this.salary = parseInt(header[1])
+    this.month = header[0]
     lines.forEach((line) => {
       let expenseItems = line.split(',')
-      let expenseItem = new ExpenseItem(expenseItems[0],parseInt(expenseItems[1]),expenseItems[2],Boolean(expenseItems[3]))
+      let expenseItem = new ExpenseItem(expenseItems[0],parseInt(expenseItems[1]),expenseItems[2],(/true/i).test(expenseItems[3]))
       this.items.push(expenseItem)
     })
+    this.Calculate();
   }
 
   public ChangeInAmount(i: ExpenseItem, index: number, e: Event) {
     let amount = (e.target as HTMLInputElement).value;
     this.items[index].Amount = parseInt(amount);
     this.Calculate();
+  }
+
+  public ChangeInName(i: ExpenseItem, index: number, e: Event) {
+    let Name = (e.target as HTMLInputElement).value;
+    this.items[index].Name = Name;
+  }
+
+  public ChangeInRemarks(i: ExpenseItem, index: number, e: Event) {
+    let Remarks = (e.target as HTMLInputElement).value;
+    this.items[index].Remarks = Remarks;
+  }
+
+  public isItemDone(i: ExpenseItem, index: number){
+    return this.items[index].Status;
+  }
+
+  public toggleCheck(i: ExpenseItem, index: number){
+    this.items[index].Status = !this.items[index].Status
   }
 }
