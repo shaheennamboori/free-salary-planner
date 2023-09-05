@@ -9,5 +9,4 @@ Note: This project was generated with [Angular CLI](https://github.com/angular/a
 # ToDo
 
 - Add validation to parsing of the files
-- Complete save file flow
 - Work on edge cases
